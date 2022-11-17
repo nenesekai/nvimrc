@@ -247,6 +247,12 @@ Plug 'lambdalisue/fern.vim'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+Plug 'lervag/vimtex'
+
+Plug 'windwp/nvim-autopairs'
+
+Plug 'critiqjo/lldb.nvim'
+
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -271,3 +277,16 @@ noremap <silent> <leader>n :Fern . -drawer -toggle<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 map cd :CocDiagnostics<cr>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Vimtex Configurations
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Autopairs Configuration
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+lua << EOF
+require("nvim-autopairs").setup {}
+EOF
+
