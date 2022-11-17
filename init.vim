@@ -238,7 +238,7 @@ endfunction
 " => Vim Plug Related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-call plug#begin('C:/Users/Asiimoviet/AppData/Local/nvim/plugged')
+call plug#begin()
 
 Plug 'vim-airline/vim-airline'
 Plug 'connorholyday/vim-snazzy'
