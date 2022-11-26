@@ -13,9 +13,11 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'lervag/vimtex'
 
-Plug 'windwp/nvim-autopairs'
-
 Plug 'critiqjo/lldb.nvim'
+
+Plug 'tpope/vim-surround'
+
+Plug 'SirVer/ultisnips'
 
 call plug#end()
 
