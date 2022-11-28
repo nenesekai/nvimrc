@@ -15,7 +15,7 @@ Plug 'lervag/vimtex'
 
 Plug 'critiqjo/lldb.nvim'
 
-Plug 'tpope/vim-surround'
+Plug 'windwp/nvim-autopairs'
 
 Plug 'SirVer/ultisnips'
 
