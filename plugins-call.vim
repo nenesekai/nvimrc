@@ -15,7 +15,7 @@ Plug 'lervag/vimtex'
 
 Plug 'windwp/nvim-autopairs'
 
-Plug 'critiqjo/lldb.nvim'
+Plug 'SirVer/ultisnips'
 
 call plug#end()
 
