@@ -101,4 +101,3 @@ let g:vimtex_view_general_viewer = 'okular'
 lua << EOF
 require("nvim-autopairs").setup {}
 EOF
-
