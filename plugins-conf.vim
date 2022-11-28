@@ -8,38 +8,12 @@ let g:fern#disable_viewer_hide_cursor = 1
 noremap <silent> <leader>n :Fern . -drawer -toggle<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => UltiSnips
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Trigger configuration. You need to change this to something other than <tab> if you use one of the following:
-" - https://github.com/Valloric/YouCompleteMe
-" - https://github.com/nvim-lua/completion-nvim
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Coc KeyBinds
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 map <leader>cd :CocDiagnostics<cr>
 
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: There's always complete item selected by default, you may want to enable
-" no select by `"suggest.noselect": true` in your configuration file.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
-      \ coc#pum#visible() ? coc#pum#next(1) :
-      \ CheckBackspace() ? "\<Tab>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
-
-" Use Enter for Auto Complete
-inoremap <expr> <CR> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <silent><expr> <tab> coc#pum#visible() ? coc#pum#confirm() : "\<tab>"
 
 function! CheckBackspace() abort
   let col = col('.') - 1
@@ -103,6 +77,26 @@ command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.org
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Ultisnip Configurations
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:UltiSnipsEditSplit="vertical"
+
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<s-tab>"
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Vimtex Configurations
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:vimtex_view_general_viewer = 'okular'
+let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Autopairs Configuration
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 lua << EOF
 require("nvim-autopairs").setup {}
