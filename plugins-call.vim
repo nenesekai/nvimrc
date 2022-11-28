@@ -1,3 +1,7 @@
+" Enable filetype plugins
+filetype plugin on
+filetype plugin indent on
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Vim Plug Calls
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
