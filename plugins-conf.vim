@@ -84,8 +84,6 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 let g:UltiSnipsEditSplit="vertical"
 
-let g:UltiSnipsSnippetDirectories="C:/Users/Asiimoviet/AppData/Local/nvim/snippets/"
-
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<s-tab>"
