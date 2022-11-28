@@ -17,5 +17,7 @@ Plug 'windwp/nvim-autopairs'
 
 Plug 'SirVer/ultisnips'
 
+Plug 'tpope/vim-surround'
+
 call plug#end()
 
