@@ -1,21 +1,218 @@
-snippet dm "Quick Math Display" iA
-\[$1\]$0
-endsnippet
+global !p
 
-snippet mk "Quick Inline Display" iA
+greeks = ['alpha', 'beta', 'gamma', 'delta', 'Delta', 'theta', 'Theta', 'lambda', 'pi', 'rho', 'sigma', 'phi', 'omega', 'nabla']
+
+symbols = ['infty', 'dots', 'to', 'leftrightarrow', 'setminus', 'mid', 'cap', 'cup', 'land', 'lor', 'subseteq', 'subset', 'implies', 'implyiedby', 'iff', 'exists', 'forall', 'equiv', 'square', 'neq', 'geq', 'leq', 'sim', 'simeq', 'approx', 'cdot', 'oplus', 'otimes', 'times', 'exp', 'ln', 'log', 'partial'] 
+
+def math():
+	return vim.eval('vimtex#syntax#in_mathzone()') == '1'
+
+def comment(): 
+	return vim.eval('vimtex#syntax#in_comment()') == '1'
+
+def env(name):
+	[x,y] = vim.eval("vimtex#env#is_inside('" + name + "')") 
+	return x != '0' and y != '0'
+
+endglobal
+
+snippet mk "inline math" iA
 \($1\)$0
 endsnippet
 
-snippet // "Quick Fraction" iA
+snippet dm "math display" iA
+\[$1\]$0
+endsnippet
+
+snippet beg "begin and end" iA
+\begin{$1}
+$0
+\end{$1}
+endsnippet
+
+snippet sec "section" b
+\section*{$1}$0
+endsnippet
+
+snippet par "paragraph" b
+\paragraph{$1}$0
+endsnippet
+
+context "math()"
+snippet "([^\\]|^)(alpha|beta|gamma|delta|Delta|theta|Theta|lambda|pi|rho|sigma|phi|omega|nabla|infty|dots|to|leftrightarrow|setminus|mid|cap|cup|land|lor|subseteq|subset|implies|impliedby|iff|exists|forall|equiv|square|neq|geq|leq|sim|simeq|approx|cdot|oplus|otimes|times|exp|ln|log|partial|sin|cos|tan|csc|sec|cot|int|oint|iint|iiint)" "quick" riA
+`!p snip.rv = match.group(1)`\\`!p snip.rv = match.group(2)`
+endsnippet
+
+context "math()"
+snippet "\\(alpha|beta|gamma|delta|Delta|theta|Theta|lambda|pi|rho|sigma|phi|omega|nabla|infty|dots|to|leftrightarrow|setminus|mid|cap|cup|land|lor|subseteq|subset|implies|impliedby|iff|exists|forall|equiv|square|neq|geq|leq|sim|simeq|approx|cdot|oplus|otimes|times|exp|ln|log|partial|sin|cos|tan|csc|sec|cot|int|oint|iint|iiint)([\w\d])" "auto space" riA
+\\`!p snip.rv = match.group(1)` `!p snip.rv = match.group(2)`
+endsnippet
+
+context "math()"
+snippet "\\(alpha|beta|gamma|delta|Delta|theta|Theta|lambda|pi|rho|sigma|phi|omega|nabla|infty|dots|to|leftrightarrow|setminus|mid|cap|cup|land|lor|subseteq|subset|implies|impliedby|iff|exists|forall|equiv|square|neq|geq|leq|sim|simeq|approx|cdot|oplus|otimes|times|exp|ln|log|partial|sin|cos|tan|csc|sec|cot|int|oint|iint|iiint) sr" "symbol square" riA
+\\`!p snip.rv = match.group(1)`^{2}
+endsnippet
+
+context "math()"
+snippet "\\(alpha|beta|gamma|delta|Delta|theta|Theta|lambda|pi|rho|sigma|phi|omega|nabla|infty|dots|to|leftrightarrow|setminus|mid|cap|cup|land|lor|subseteq|subset|implies|impliedby|iff|exists|forall|equiv|square|neq|geq|leq|sim|simeq|approx|cdot|oplus|otimes|times|exp|ln|log|partial|sin|cos|tan|csc|sec|cot|int|oint|iint|iiint) cb" "symbol cube" riA
+\\`!p snip.rv = match.group(1)`^{3}
+endsnippet
+
+context "math()"
+snippet "\\(alpha|beta|gamma|delta|Delta|theta|Theta|lambda|pi|rho|sigma|phi|omega|nabla|infty|dots|to|leftrightarrow|setminus|mid|cap|cup|land|lor|subseteq|subset|implies|impliedby|iff|exists|forall|equiv|square|neq|geq|leq|sim|simeq|approx|cdot|oplus|otimes|times|exp|ln|log|partial|sin|cos|tan|csc|sec|cot|int|oint|iint|iiint) rd" "" riA
+\\`!p snip.rv = match.group(1)`^{$1}$0
+endsnippet
+
+context "math()"
+snippet sr "square" iA
+^{2}
+endsnippet
+
+context "math()"
+snippet cb "cube" iA
+^{3}
+endsnippet
+
+context "math()"
+snippet rd "to the ..." iA
+^{$1}$0
+endsnippet
+
+context "math()"
+snippet __ "subscript" iA
+_{$1}$0
+endsnippet
+
+context "math()"
+snippet invs "inverse" iA
+^{-1}
+endsnippet
+ 
+context "math()"
+snippet mbf "mathbf" iA
+\mathbf{$1}$0
+endsnippet
+
+context "math()"
+snippet mcal "mathcal" iA
+\mathcal{$1}$0
+endsnippet
+
+context "math()"
+snippet sq "square root" iA
+\sqrt{ $1 }$0
+endsnippet
+
+context "math()"
+snippet ee "e" iA
+e^{ $1 }$0
+endsnippet
+
+context "math()"
+snippet frac "fraction" iA
 \frac{$1}{$2}$0
 endsnippet
 
-snippet '((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d))*)/' "Fraction" wrA
+context "math()"
+snippet lim "limit" iA
+\lim_{${1:n} \to ${2:\infty}} $0
+endsnippet
+
+context "math()"
+snippet union "union" iA
+\cup
+endsnippet
+
+context "math()"
+snippet intersection "intersection" iA
+\cap
+endsnippet
+
+context "math()"
+snippet and "logic and" iA
+\land
+endsnippet
+
+context "math()"
+snippet or "logic or" iA
+\lor
+endsnippet
+
+context "math()"
+snippet "\subset eq" "subseteq" iA
+\subseteq
+endsnippet
+
+context "math()"
+snippet "(N|Z|Q|R){2}" "mcal specific" riA
+\mathbb{`!p snip.rv = match.group(1)`}
+endsnippet
+
+context "math()"
+snippet vec "vector" iA
+\vec{$1}$0
+endsnippet
+
+context "math()"
+snippet par "partial" i
+\frac{ \partial ${1:y} }{ \partial ${2:x} } $0
+endsnippet
+
+context "math()"
+snippet pa2 "partial 2" i
+\frac{ \partial^{2} ${1:y} }{ \partial ${2:x}^{2} } $0
+endsnippet
+
+context "math()"
+snippet pa3 "partial 3" i
+\frac{ \partial^{3} ${1:y} }{ \partial ${2:x}^{3}} $0
+endsnippet
+
+context "math()"
+snippet "pa([\w])([\w])" "quick partial" ri
+\frac{ \partial `!p snip.rv = match.group(1)` }{ \partial `!p snip.rv = match.group(2)` }
+endsnippet
+
+context "math()"
+snippet "pa([\w])([\w])([\w])" "quick partial 2" ri
+\frac{ \partial^{2} `!p snp.rv = match.group(1)` }{ \partial `!p snip.rv = match.group(2)` \partial `!p snip.rv = match.group(3)` }
+endsnippet
+
+context "math()"
+snippet "pa([\w])([\w])2" "quick partial 3" ri
+\frac{ \partial^{2} `!p snip.rv = match.group(1)` }{ \partial `!p snip.rv = match.group(2)`^{2} }
+endsnippet
+
+context "math()"
+snippet "de([\w])([\w])" "derivative" ri
+\frac{ d`!p snip.rv = match.group(1)` }{ d`!p snip.rv = match.group(2)` }
+endsnippet
+
+context "math()"
+snippet "de([\w])([\w])2" "derivative 2" ri
+\frac{ d^{2} `!p snip.rv = match.group(1)` }{ d `!p snip.rv = match.group(2)`^{2} }
+endsnippet
+
+context "math()"
+priority 1145
+snippet dint "dint" iA
+\int_{${1:0}}^{${2:\infty}} $0
+endsnippet
+
+snippet align "align" iA
+\begin{align*}
+$0
+\end{align*}
+endsnippet
+
+context "math()"
+snippet '((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d))*)/' "symbol frac" wrA
 \\frac{`!p snip.rv = match.group(1)`}{$1}$0
 endsnippet
 
 priority 1000
-snippet '^.*\)/' "() Fraction" wrA
+context "math()"
+snippet '^.*\)/' "() frac" wrA
 `!p
 stripped = match.string[:-1]
 depth = 0
@@ -24,8 +221,18 @@ while True:
 	if stripped[i] == ')': depth += 1
 	if stripped[i] == '(': depth -= 1
 	if depth == 0: break;
-	i -= 1
+	i-=1
 snip.rv = stripped[0:i] + "\\frac{" + stripped[i+1:-1] + "}"
 `{$1}$0
+endsnippet
+
+context "math()"
+snippet lr "left right ()" iA
+\left( $1 \right) $0
+endsnippet
+
+context "math()"
+snippet te "text" i
+\text{$1}$0
 endsnippet
 
