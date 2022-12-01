@@ -17,11 +17,11 @@ def env(name):
 endglobal
 
 snippet mk "inline math" iA
-\($1\)$0
+\$$1${VISUAL}\$$0
 endsnippet
 
 snippet dm "math display" iA
-\[$1\]$0
+\[$1${VISUAL}\]$0
 endsnippet
 
 snippet beg "begin and end" iA
@@ -252,12 +252,22 @@ snippet plug "plug" iA
 endsnippet
 
 snippet tikzpicture "tikzpicture" b
-\begin{figure}[h]
-	\begin{tikzpicture}[framed]
+\begin{figure}[H]
+	\begin{tikzpicture}
 		$0
 	\end{tikzpicture}
 	\centering
 \end{figure}
+endsnippet
+
+context "env('tikzpicture')"
+snippet node "node"
+\node[shape=circle,draw=black] ($1) at (${2:0,0}) {$1};$0
+endsnippet
+
+context "env('tikzpicture')"
+snippet path "path"
+\path [-] ($1) edge node[] {} ($2);$0
 endsnippet
 
 context "env('tikzpicture')"
@@ -408,3 +418,94 @@ snippet vmat "vmatrix" iA
 $0
 endsnippet
 
+snippet "([^\\]|^)vspace" "vspace" iAr
+`!p snip.rv = match.group(1)`\vspace{${1:5px}}$0
+endsnippet
+
+snippet bf "textbf" A
+\textbf{$1}$0
+endsnippet
+
+snippet template "template" b
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\usetikzlibrary{automata,positioning,backgrounds}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkClass\ (\hmwkCourseID): \hmwkTitle}
+\rhead{\hmwkAuthorName}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#${1:1}}
+\newcommand{\hmwkDueDate}{${2:\\today}}
+\newcommand{\hmwkClass}{${3:Calculus}}
+\newcommand{\hmwkCourseID}{${4:Section A}}
+\newcommand{\hmwkClassInstructor}{Professor ${5:Issac Newton}}
+\newcommand{\hmwkAuthorName}{\textbf{Qixuan Chen}}
+
+%
+% Title Page
+%
+
+\title{
+	\vspace{2in}
+	\textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\\\
+	\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\\\
+	\vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkCourseID}}
+	\vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{\today}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{Solution}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+$0
+
+\end{document}
+endsnippet
