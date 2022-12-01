@@ -26,7 +26,7 @@ endsnippet
 
 snippet beg "begin and end" iA
 \begin{$1}
-$0
+	$0
 \end{$1}
 endsnippet
 
@@ -38,29 +38,23 @@ snippet par "paragraph" b
 \paragraph{$1}$0
 endsnippet
 
+snippet pagebreak "pagebreak" bA
+\pagebreak
+endsnippet
+
+snippet solution "solution" bA
+\solution
+endsnippet
+
 context "math()"
-snippet "([^\\]|^)(alpha|beta|gamma|delta|Delta|theta|Theta|lambda|pi|rho|sigma|phi|omega|nabla|infty|dots|to|leftrightarrow|setminus|mid|cap|cup|land|lor|subseteq|subset|implies|impliedby|iff|exists|forall|equiv|square|neq|geq|leq|sim|simeq|approx|cdot|oplus|otimes|times|exp|ln|log|partial|sin|cos|tan|csc|sec|cot|int|oint|iint|iiint)" "quick" riA
+snippet "([^\\]|^)(alpha|beta|gamma|delta|Delta|theta|Theta|lambda|pi|rho|sigma|phi|omega|nabla|infty|dots|to|leftrightarrow|setminus|mid|cap|cup|land|lor|subseteq|subset|implies|impliedby|iff|exists|forall|equiv|square|neq|geq|leq|sim|simeq|approx|cdot|oplus|otimes|times|exp|ln|log|partial|sin|cos|tan|csc|sec|cot|oint|int|iint|iiint|quad)" "quick" riA
 `!p snip.rv = match.group(1)`\\`!p snip.rv = match.group(2)`
 endsnippet
 
 context "math()"
-snippet "\\(alpha|beta|gamma|delta|Delta|theta|Theta|lambda|pi|rho|sigma|phi|omega|nabla|infty|dots|to|leftrightarrow|setminus|mid|cap|cup|land|lor|subseteq|subset|implies|impliedby|iff|exists|forall|equiv|square|neq|geq|leq|sim|simeq|approx|cdot|oplus|otimes|times|exp|ln|log|partial|sin|cos|tan|csc|sec|cot|int|oint|iint|iiint)([\w\d])" "auto space" riA
+priority 11
+snippet "\\(alpha|beta|gamma|delta|Delta|theta|Theta|lambda|pi|rho|sigma|phi|omega|nabla|infty|dots|to|leftrightarrow|setminus|mid|cap|cup|land|lor|subseteq|subset|implies|impliedby|iff|exists|forall|equiv|square|neq|geq|leq|sim|simeq|approx|cdot|oplus|otimes|times|exp|ln|log|partial|sin|cos|tan|csc|sec|cot|oint|int|iint|iiint|quad)([A-Za-z0-9])" "auto space" riA
 \\`!p snip.rv = match.group(1)` `!p snip.rv = match.group(2)`
-endsnippet
-
-context "math()"
-snippet "\\(alpha|beta|gamma|delta|Delta|theta|Theta|lambda|pi|rho|sigma|phi|omega|nabla|infty|dots|to|leftrightarrow|setminus|mid|cap|cup|land|lor|subseteq|subset|implies|impliedby|iff|exists|forall|equiv|square|neq|geq|leq|sim|simeq|approx|cdot|oplus|otimes|times|exp|ln|log|partial|sin|cos|tan|csc|sec|cot|int|oint|iint|iiint) sr" "symbol square" riA
-\\`!p snip.rv = match.group(1)`^{2}
-endsnippet
-
-context "math()"
-snippet "\\(alpha|beta|gamma|delta|Delta|theta|Theta|lambda|pi|rho|sigma|phi|omega|nabla|infty|dots|to|leftrightarrow|setminus|mid|cap|cup|land|lor|subseteq|subset|implies|impliedby|iff|exists|forall|equiv|square|neq|geq|leq|sim|simeq|approx|cdot|oplus|otimes|times|exp|ln|log|partial|sin|cos|tan|csc|sec|cot|int|oint|iint|iiint) cb" "symbol cube" riA
-\\`!p snip.rv = match.group(1)`^{3}
-endsnippet
-
-context "math()"
-snippet "\\(alpha|beta|gamma|delta|Delta|theta|Theta|lambda|pi|rho|sigma|phi|omega|nabla|infty|dots|to|leftrightarrow|setminus|mid|cap|cup|land|lor|subseteq|subset|implies|impliedby|iff|exists|forall|equiv|square|neq|geq|leq|sim|simeq|approx|cdot|oplus|otimes|times|exp|ln|log|partial|sin|cos|tan|csc|sec|cot|int|oint|iint|iiint) rd" "" riA
-\\`!p snip.rv = match.group(1)`^{$1}$0
 endsnippet
 
 context "math()"
@@ -149,9 +143,10 @@ snippet "(N|Z|Q|R){2}" "mcal specific" riA
 endsnippet
 
 context "math()"
-snippet vec "vector" iA
-\vec{$1}$0
+snippet "([A-Za-z])vec" "vector" riA
+\vec{`!p snip.rv = match.group(1)`}
 endsnippet
+
 
 context "math()"
 snippet par "partial" i
@@ -166,6 +161,11 @@ endsnippet
 context "math()"
 snippet pa3 "partial 3" i
 \frac{ \partial^{3} ${1:y} }{ \partial ${2:x}^{3}} $0
+endsnippet
+
+context "math()"
+snippet "pa([\w])" "quick partial" ri
+\frac{ \partial }{ \partial `!p snip.rv = match.group(1)` }
 endsnippet
 
 context "math()"
@@ -196,12 +196,22 @@ endsnippet
 context "math()"
 priority 1145
 snippet dint "dint" iA
-\int_{${1:0}}^{${2:\infty}} $0
+\int_{${1:0}}^{${2:\infty}} \left( $4 \right) d${3:x} $0
+endsnippet
+
+context "math()"
+snippet diint "diint" iA
+\int_{${1:0}}^{${2:\infty}} \int_{${4:0}}^{${5:\infty}} \left( $7 \right) d${6:y} d${3:x} $0
+endsnippet
+
+context "math()"
+snippet diiint "diiint" iA
+\int_{${1:0}}^{${2:\infty}} \int_{${4:0}}^{${5:\infty}} \int_{${7:0}}^{${8:\infty}} \left( $10 \right) d${9:z} d${6:y} d${3:x} $0
 endsnippet
 
 snippet align "align" iA
 \begin{align*}
-$0
+	$0
 \end{align*}
 endsnippet
 
@@ -228,11 +238,173 @@ endsnippet
 
 context "math()"
 snippet lr "left right ()" iA
-\left( $1 \right) $0
+\left( $1${VISUAL} \right) $0
 endsnippet
 
 context "math()"
 snippet te "text" i
 \text{$1}$0
+endsnippet
+
+context "math()"
+snippet plug "plug" iA
+\Big[ $4 \Big]_{$3 = $1}^{$3 = $2} $0
+endsnippet
+
+snippet tikzpicture "tikzpicture" b
+\begin{figure}[h]
+	\begin{tikzpicture}[framed]
+		$0
+	\end{tikzpicture}
+	\centering
+\end{figure}
+endsnippet
+
+context "env('tikzpicture')"
+snippet axis2d "axis2d"
+\begin{axis} [
+	axis lines = ${1:center},
+	xmin = ${2:-10}, xmax = ${3:10},
+	ymin = ${4:-10}, ymax = ${5:10},
+	xlabel = \{\(x\)\},
+	ylabel = \{\(y\)\},
+	axis equal image,
+]
+	$0
+\end{axis}
+endsnippet
+
+context "env('tikzpicture')"
+snippet axis3d "axis3d"
+\begin{axis} [
+	xlabel = \{\(x\)\},
+	ylabel = \{\(y\)\},
+	zlabel = \{\(z\)\},
+	width = ${1:10cm},
+	axis lines = ${2:center},
+	axis equal,
+	view/h = ${3:45},
+	view/v = ${4:45},
+]
+	$0
+\end{axis}
+endsnippet
+
+context "env('axis')"
+snippet ap
+\addplot [
+	domain = ${1:0:1},
+	samples = ${2:100}
+]
+({$3});$0
+endsnippet
+
+context "env('axis')"
+snippet ap3
+\addplot3 [
+	opacity = ${1:0.8},
+	surf,
+	z buffer = sort,
+	samples = ${2:21},
+	variable = \\${3:u},
+	variable y = \\${4:v},
+	domain = ${5:0:180},
+	domain y = ${6:0:360},
+]
+(\{${7:cos(u)*sin(v)}\}, \{${8:sin(u)*sin(v)}\}, \{${9:cos(v)}\});
+endsnippet
+
+context "env('axis')"
+snippet line
+\draw [samples = ${1:100}${2:, thick}] (${3:0,0}) -- (${4:1,1});
+endsnippet
+
+context "env('axis')"
+snippet arc
+\draw [smooth = ${1:100}${2:, thick}] (${3:1,0}) arc (${4:0:180:2});
+endsnippet
+
+context "env('axis')"
+snippet circ
+\draw (axis cs: ${1:0,0}) circle [radius = ${2:1}];
+endsnippet
+
+snippet sympy "sympy block " w
+sympy $1 sympy$0
+endsnippet
+
+priority 10000
+snippet 'sympy(.*)sympy' "evaluate sympy" wr
+`!p
+from sympy import *
+x, y, z, t = symbols('x y z t')
+k, m, n = symbols('k m n', integer=True)
+f, g, h = symbols('f g h', cls=Function)
+init_printing()
+snip.rv = eval('latex(' + match.group(1).replace('\\', '') \
+    .replace('^', '**') \
+    .replace('{', '(') \
+    .replace('}', ')') + ')')
+`
+endsnippet
+
+context "math()"
+snippet "(\w|}|\))\+" "plug space 1" iAr
+`!p snip.rv = match.group(1)` +
+endsnippet
+
+context "math()"
+snippet "\+(\w)" "plug space 2" iAr
++ `!p snip.rv = match.group(1)`
+endsnippet
+
+context "math()"
+snippet "(\w|}|\))\-" "minus space 1" iAr
+`!p snip.rv = match.group(1)` -
+endsnippet
+
+context "math()"
+snippet "\-(\w)" "minus space 2" iAr
+- `!p snip.rv = match.group(1)`
+endsnippet
+
+context "math()"
+snippet "(\w|}|\))\=" "equal space 1" iAr
+`!p snip.rv = match.group(1)` =
+endsnippet
+
+context "math()"
+snippet "\=(\w|=)" "equal space 2" iAr
+`!p
+if match.group(1) == '=':
+	snip.rv = '&='
+else:
+	snip.rv = '= ' + match.group(1)`
+endsnippet
+
+context "math()"
+snippet case "cases" iA
+\begin{cases}
+	$1
+\end{cases}
+$0
+endsnippet
+
+context "math()"
+snippet set "set" iA
+\{ $1 \} $0
+endsnippet
+
+context "math()"
+snippet avg "avg" iA
+\langle $1 \rangle $0
+endsnippet
+
+context "math()"
+snippet vmat "vmatrix" iA
+\begin{vmatrix}
+	$1
+\end{vmatrix}
+$0
 endsnippet
 
