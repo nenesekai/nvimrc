@@ -126,6 +126,17 @@ map <leader>cd :cd %:p:h<cr>:pwd<cr>
 " => Other mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" Copy to Clipboard
+vnoremap <leader>y "+y
+nnoremap <leader>Y "+yg_
+nnoremap <leader>y "+y
+
+" Paste from Clipboard
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+vnoremap <leader>p "+p
+vnoremap <leader>P "+P
+
 " Fast saving and quitting
 nmap W :w!<cr>
 nmap Q :q<cr>
